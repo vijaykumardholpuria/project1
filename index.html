@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pebble EPR Form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #121212;
+            color: #f1f1f1;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #00ffc8;
+        }
+
+        form,
+        .result,
+        .contact {
+            max-width: 850px;
+            margin: 30px auto;
+            background-color: #1e1e1e;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.2);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            background: #2e2e2e;
+            color: white;
+            border: 1px solid #444;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 12px 20px;
+            background-color: #00ffc8;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 30px;
+            border-collapse: collapse;
+            background-color: #222;
+        }
+
+        th,
+        td {
+            border: 1px solid #555;
+            padding: 12px;
+        }
+
+        th {
+            background-color: #00ffc8;
+            color: black;
+        }
+
+        img.logo {
+            display: block;
+            margin: 0 auto 20px;
+            max-width: 120px;
+        }
+
+        .bin-image {
+            max-height: 80px;
+            margin-top: 10px;
+            background: #fff;
+            border-radius: 6px;
+            padding: 4px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .credit {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: #888;
+        }
+
+        @media screen and (max-width: 600px) {
+            h1 {
+                font-size: 24px;
+            }
+
+            th,
+            td {
+                font-size: 14px;
+            }
+
+            input {
+                font-size: 14px;
+            }
+        }
+    </style>
+    <style>
+        @media print {
+            body {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                background-color: #121212 !important;
+                color: white !important;
+            }
+
+            form,
+            .contact,
+            .credit {
+                display: none;
+                /* Form & contact info hide while printing */
+            }
+
+            .result {
+                box-shadow: none;
+                background-color: #1e1e1e !important;
+            }
+
+            table,
+            th,
+            td {
+                background-color: #222 !important;
+                color: white !important;
+                border: 1px solid #555 !important;
+            }
+
+            th {
+                background-color: #00ffc8 !important;
+                color: black !important;
+            }
+
+            .bin-image {
+                background: #fff !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Logo -->
+    <img src="loggo.jpg" alt="Pebble Logo" class="logo">
+
+    <h1>Pebble EPR Detail Form</h1>
+
+    <!-- Input Form -->
+    <form id="eprForm">
+        <label>Effect Date:</label>
+        <input type="date" id="effectDate" required>
+
+        <label>Name of The Producer:</label>
+        <input type="text" id="producerName" required>
+
+        <label>Registered Address of The Producer:</label>
+        <input type="text" id="address" required>
+
+        <label>Certificate No/Bettery EPR registration number:</label>
+        <input type="text" id="certificate" required>
+
+        <label> Type of Battery:</label>
+        <input type="text" id="batteryType" required>
+
+        <label>Effect Date:</label>
+        <input type="date" id="plasticEffectDate" required >
+
+        <label>Company Name:</label>
+        <input type="text" id="plasticCompanyName" required>
+
+        <label>EPR registration No.:</label>
+        <input type="text" id="plasticEPR" required>
+
+        <label>Category Of Plastic packaging:</label>
+        <input type="text" id="plasticCategory" required>
+
+        <label>Thickness of plastic packaging(in case of Cat-2nd):</label>
+        <input type="number" id="plasticThickness" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <!-- Result Section -->
+    <div class="result hidden" id="resultSection">
+        <h2>Submitted EPR Details</h2>
+
+        <table>
+            <tr>
+                <th>Battery</th>
+                <th>Details </th>
+            </tr>
+            <tr>
+                <td>Effect Date</td>
+                <td id="r_effectDate"></td>
+            </tr>
+
+            <tr>
+                <td>Name of The Producer</td>
+                <td id="r_producerName"></td>
+            </tr>
+            <tr>
+                <td>Registered Address of The Producer</td>
+                <td id="r_address"></td>
+            </tr>
+            <tr>
+                <td>Certificate No/Bettery EPR registration number</td>
+                <td id="r_certificate"></td>
+            </tr>
+            <tr>
+                <td>Type of Battery</td>
+                <td id="r_batteryType"></td>
+            </tr>
+            <tr>
+                <td>Crossed out wheeled bin symbol</td>
+                <td><img src="bin.jpeg" alt="Crossed Bin Symbol" class="bin-image"><br>Correct Symbol</td>
+            </tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Plastic</th>
+                <th>Details</th>
+            </tr>
+            <tr>
+                <td>Effect Date</td>
+                <td id="r_plasticEffectDate"></td>
+            </tr>
+            <tr>
+                <td>Company Name</td>
+                <td id="r_plasticCompanyName"></td>
+            </tr>
+            <tr>
+                <td>Plastic EPR Number</td>
+                <td id="r_plasticEPR"></td>
+            </tr>
+            <tr>
+                <td>Plastic Category</td>
+                <td id="r_plasticCategory"></td>
+            </tr>
+            <tr>
+                <td>Plastic Thickness</td>
+                <td id="r_plasticThickness"></td>
+            </tr>
+        </table>
+
+        <div style="text-align: center;">
+            <button onclick="window.print()">Download / Print PDF</button>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <div class="contact">
+        <h2>Contact Information</h2>
+        <p><strong>Company:</strong> SRK Powertech Pvt. Ltd.</p>
+        <p><strong>Email:</strong> support@srkpowertech.com</p>
+        <!-- <p><strong>Phone:</strong> +91 9876543210</p> -->
+        <p><strong>Location:</strong> G-201, SECTOR-63, NOIDA, Gautam Buddha Nagar, Uttar Pradesh, 201305</p>
+    </div>
+
+    <!-- Credit Line -->
+    <div class="credit">
+        © Developed by <strong>Vijay Dholpuria</strong> | All rights reserved.
+    </div>
+
+    <script>
+        const form = document.getElementById('eprForm');
+        const result = document.getElementById('resultSection');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Populate result section
+            document.getElementById('r_effectDate').textContent = document.getElementById('effectDate').value;
+            document.getElementById('r_producerName').textContent = document.getElementById('producerName').value;
+            document.getElementById('r_address').textContent = document.getElementById('address').value;
+            document.getElementById('r_certificate').textContent = document.getElementById('certificate').value;
+            document.getElementById('r_batteryType').textContent = document.getElementById('batteryType').value;
+
+            document.getElementById('r_plasticEffectDate').textContent = document.getElementById('plasticEffectDate').value;
+            document.getElementById('r_plasticCompanyName').textContent = document.getElementById('plasticCompanyName').value;
+            document.getElementById('r_plasticEPR').textContent = document.getElementById('plasticEPR').value;
+            document.getElementById('r_plasticCategory').textContent = document.getElementById('plasticCategory').value;
+            document.getElementById('r_plasticThickness').textContent = document.getElementById('plasticThickness').value;
+
+            form.classList.add('hidden');
+            result.classList.remove('hidden');
+        });
+    </script>
+
+</body>
+
+</html>
